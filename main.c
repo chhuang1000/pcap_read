@@ -43,9 +43,10 @@ int main(int argc, char* argv[]){
 			printf("Time: %s, Captured packet length: %d, Total packet length: %d\n", timeStr, header->len, header->caplen);
 			struct ether_header* packetHeader = (struct ether_header*)packet;
 			struct ether_addr smac, dmac;
-			memcpy(&smac, packetHeader->ether_shost, sizeof(struct ether_addr));
-			memcpy(&dmac, packetHeader->ether_dhost, sizeof(struct ether_addr));
-			printf("Source MAC address: %s, Destination MAC address: %s\n", ether_ntoa(&smac), ether_ntoa(&dmac));
+			memcpy(&smac, &(packetHeader->ether_shost), sizeof(struct ether_addr));
+			memcpy(&dmac, &(packetHeader->ether_dhost), sizeof(struct ether_addr));
+			printf("Source MAC address: %s, ", ether_ntoa(&smac));
+			printf("Destination MAC address: %s\n", ether_ntoa(&dmac));
 			if(ntohs(packetHeader->ether_type) == ETHERTYPE_IP){
 				printf("Type: IP(Protocol: ");
 				const u_char* proto = packet + 14 + 9;	// ethernet header length = 14, protocol number start at offset 9 bytes
