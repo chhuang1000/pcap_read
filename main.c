@@ -54,6 +54,8 @@ int main(int argc, char* argv[]){
 					printf("TCP)\n");
 				else if(*proto == IPPROTO_UDP)
 					printf("UDP)\n");
+				else if(*proto == 89)
+					printf("OSPF(Portocol 89))\n");
 				else
 					printf("Other)\n");
 
